@@ -81,7 +81,7 @@ def scale_standard(points: np.ndarray) -> np.ndarray:
 
 
 def get_arguments():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='The normalization script for training and validation data used for training the model')
 
     parser.add_argument(
         'input', type=str,
