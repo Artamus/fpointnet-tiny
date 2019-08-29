@@ -14,6 +14,6 @@ Training and validation (and test) data should live in separate folders.
 # Usage
 If the initial frustums data is not normalized, it should be normalized via `preprocess.py`.
 
-The model can be trained via the training program.
+The model can be trained via the training program. Output models are saved into the appropriately named models directory, with each run having its own subfolder. The models are only saved if validation accuracy improves and contain the epoch number of their creation. Therefore the model with the highest epoch number is the best.
 
 In addition to training there is a prediction/evaluation program, which takes as input unnormalized frustums data and performs normalization on its own. This program requires points to be labelled, but can be easily altered to not require it to make predictions on not-yet-labelled data.
