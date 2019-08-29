@@ -46,7 +46,7 @@ def sort_points(points):
 
 
 def get_arguments():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Script to merge different frustums of the same scene to a single file')
 
     parser.add_argument(
         'input', type=str,
@@ -90,9 +90,6 @@ if __name__ == '__main__':
         scene_points = np.vstack(scene_points)
         unique_points = get_unique_points(scene_points)
         sorted_points = sort_points(unique_points)
-
-        #unique_mask = np.unique(scene_points[:, :3], axis=0, return_index=True, return_counts=True)
-        # unique_scene_points = scene_points[unique_mask]
 
         output_scene_path = os.path.join(output_dir, scene_id)
         np.savez(output_scene_path, points=sorted_points)
