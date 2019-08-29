@@ -4,7 +4,7 @@ import preprocessing
 import time
 import numpy as np
 import tensorflow as tf
-from fpointnet_functional import get_compiled_model
+from fpointnet_tiny_functional import get_compiled_model
 from scipy import stats
 
 
