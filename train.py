@@ -132,10 +132,10 @@ if __name__ == '__main__':
     allowed_class = args.class_name
     run_id = args.run_id
 
-    train_x, train_y = read_raw_data(train_data_path, allowed_class, 500)
+    train_x, train_y = read_raw_data(train_data_path, allowed_class)
     print(f'Raw training data has {len(train_x)} samples')
 
-    val_x, val_y = read_raw_data(val_data_path, allowed_class, 100)
+    val_x, val_y = read_raw_data(val_data_path, allowed_class)
     print(f'Raw validation data has {len(val_x)} samples')
 
     train_x = tf.ragged.constant(train_x, ragged_rank=1)
