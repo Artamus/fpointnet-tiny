@@ -37,9 +37,23 @@ def read_raw_data(data_path, allowed_class, sample_limit=None):
     return frustums_data, kept_frustums
 
 
-def sample_points(labelled_points, num_points):
+def sample_points(labelled_points, num_points, sample_at_least_once=False):
     scene_points = np.array(labelled_points)
-    mask = np.random.choice(len(scene_points), num_points, replace=True)
+
+    if sample_at_least_once:
+        if len(scene_points) > num_points:
+            mask = np.random.choice(len(scene_points), num_points, replace=False)
+        elif len(scene_points) == num_points:
+            mask = np.arange(len(scene_points))
+            np.random.shuffle(mask)
+        else:
+            mask = np.zeros(shape=num_points, dtype=np.int32)
+            mask[:len(scene_points)] = np.arange(len(scene_points), dtype=np.int32)
+            mask[len(scene_points):] = np.random.choice(len(scene_points), num_points - len(scene_points), replace=True)
+            np.random.shuffle(mask)
+    else:
+        mask = np.random.choice(len(scene_points), num_points, replace=True)
+
     sampled_labelled_points = scene_points[mask]
 
     return sampled_labelled_points, mask
@@ -51,7 +65,7 @@ def structure_data(scenes_labelled_points, num_points):
     masks = np.zeros(shape=(len(scenes_labelled_points), num_points))
 
     for i, labelled_points in enumerate(scenes_labelled_points):
-        sampled_labelled_points, mask = sample_points(labelled_points, num_points)
+        sampled_labelled_points, mask = sample_points(labelled_points, num_points, True)
         points[i] = sampled_labelled_points[:, :3]
         labels[i] = sampled_labelled_points[:, 3]
         masks[i] = mask
